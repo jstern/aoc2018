@@ -1,0 +1,7 @@
+*.pyc
+__pycache__
+.coverage
+.mypy_cache/
+.venv/
+htmlcov/
+inputs/
