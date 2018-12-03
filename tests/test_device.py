@@ -19,3 +19,7 @@ class DeviceTests(unittest.TestCase):
             dev = device.Device()
             dev.calibrate(changes)
             self.assertEqual(dev.freq, result)
+
+    def test_warehouse_checksum(self):
+        ids = ("abcdef", "bababc", "abbcde", "abcccd", "aabcdd", "abcdee", "ababab")
+        self.assertEqual(device.Device().warehouse_checksum(ids), 12)
