@@ -23,3 +23,7 @@ class DeviceTests(unittest.TestCase):
     def test_warehouse_checksum(self):
         ids = ("abcdef", "bababc", "abbcde", "abcccd", "aabcdd", "abcdee", "ababab")
         self.assertEqual(device.Device().warehouse_checksum(ids), 12)
+
+    def test_similar_boxes(self):
+        ids = ("abcde", "fghij", "klmno", "pqrst", "fguij", "axcye", "wvxyz")
+        self.assertEqual(device.Device().matching_letters(ids), "fgij")

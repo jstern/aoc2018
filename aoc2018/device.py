@@ -1,5 +1,5 @@
 from collections import Counter
-from itertools import cycle
+from itertools import chain, cycle
 from typing import Iterable, Set
 
 
@@ -27,3 +27,12 @@ class Device:
             twos = twos + (2 in counts)
             threes = threes + (3 in counts)
         return twos * threes
+
+    def matching_letters(self, box_ids: Iterable[str]) -> str:
+        def matchables(idstr: str) -> Iterable[str]:
+            for i in range(len(idstr)):
+                j = i + 1
+                yield idstr[:i] + "_" + idstr[j:]
+
+        counts = Counter(chain.from_iterable(matchables(idstr) for idstr in box_ids))
+        return counts.most_common(1)[0][0].replace("_", "")
