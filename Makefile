@@ -20,5 +20,6 @@ lint:
 typecheck:
 	.venv/bin/mypy aoc2018 tests
 
+# for linux, switch to time -v
 run:
-	.venv/bin/python -m aoc2018.exercises.ex$(ex)
+	time -l .venv/bin/python -m aoc2018.exercises.ex$(ex)
