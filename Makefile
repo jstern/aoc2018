@@ -21,4 +21,4 @@ typecheck:
 	.venv/bin/mypy aoc2018 tests
 
 run:
-	.venv/bin/python -m aoc2018.exercises.$(ex)
+	.venv/bin/python -m aoc2018.exercises.ex$(ex)
