@@ -2,7 +2,7 @@ from collections import Counter
 import logging
 import os
 import re
-from typing import Iterable
+from typing import Iterable, Tuple
 
 logging.basicConfig(level=getattr(logging, os.environ.get("LOG_LEVEL", "INFO")))
 log = logging.getLogger(__name__)
@@ -68,3 +68,7 @@ class DutyLog:
             if guard == guard_minute[0]:
                 return guard_minute[1]
         raise Exception("sleepiest minute not found")
+
+    @property
+    def sleepiest_guard_minute(self) -> Tuple[int, int]:
+        return self.processor.incidents_by_minute.most_common(1)[0][0]

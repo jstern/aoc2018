@@ -6,3 +6,5 @@ if __name__ == "__main__":
     log = DutyLog(read_lines("day4"))
     guard = log.sleepiest_guard
     print("Part one", guard * log.sleepiest_minute(guard))
+    guard, minute = log.sleepiest_guard_minute
+    print("Part two", guard * minute)

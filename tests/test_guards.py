@@ -41,3 +41,6 @@ class TestGuards(unittest.TestCase):
 
         with self.subTest("finds sleepiest minute for guard"):
             self.assertEqual(log.sleepiest_minute(10), 24)
+
+        with self.subTest("finds sleepiest guard/minute combo"):
+            self.assertEqual(log.sleepiest_guard_minute, (99, 45))
