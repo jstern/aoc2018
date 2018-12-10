@@ -9,4 +9,4 @@ def input_path(name: str) -> str:
 def read_lines(name: str) -> Iterable[str]:
     with open(input_path(name), "rb") as inp:
         for line in inp:
-            yield line.decode("utf-8")
+            yield line.decode("utf-8").strip()
