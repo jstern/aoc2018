@@ -28,3 +28,10 @@ class TestPolymer(unittest.TestCase):
         for i, example in enumerate(examples):
             with self.subTest(f"example {i}"):
                 self.assertEqual(react(example[0]), example[1])
+
+        with self.subTest("react without discards unit"):
+            original = examples[-1][0]
+            removed = original.replace("d", "").replace("D", "")
+            expected = react(removed)
+            self.assertEqual(react(original, without="d"), expected)
+            self.assertEqual(react(original, without="D"), expected)
