@@ -34,9 +34,10 @@ class TestGuards(unittest.TestCase):
         self.assertEqual(log.entries, example)
 
     def test_tallies_sleep_incidents(self):
-        incidents = DutyLog(example).incidents
-        self.assertEqual(incidents[("10", 4)], 0)
-        self.assertEqual(incidents[("10", 5)], 1)
-        self.assertEqual(incidents[("10", 24)], 2)
-        self.assertEqual(incidents[("10", 25)], 1)
-        self.assertEqual(incidents[("99", 45)], 3)
+        log = DutyLog(example)
+
+        with self.subTest("finds sleepiest guard"):
+            self.assertEqual(log.sleepiest_guard, 10)
+
+        with self.subTest("finds sleepiest minute for guard"):
+            self.assertEqual(log.sleepiest_minute(10), 24)

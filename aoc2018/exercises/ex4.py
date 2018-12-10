@@ -4,4 +4,5 @@ from ..guards import DutyLog
 
 if __name__ == "__main__":
     log = DutyLog(read_lines("day4"))
-    print(log.incidents)
+    guard = log.sleepiest_guard
+    print("Part one", guard * log.sleepiest_minute(guard))
