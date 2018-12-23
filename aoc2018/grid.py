@@ -83,7 +83,6 @@ def max_area(points: List[Point2D]) -> int:
     distances: Dict = {}
 
     # find the distances to each candidate point from each point in the rectangle
-    # (is the rectangle a mistake? could there be points outside the rectangle closest to interior points?)
     for point in rect.points():
         for point2 in points:
             distances.setdefault(point, {})[point2] = md(point, point2)
@@ -93,7 +92,9 @@ def max_area(points: List[Point2D]) -> int:
     for point in interior:
         a: int = 0
         for dists in distances.values():
-            sdists: List[Tuple[Point2D, int]] = sorted(dists.items(), key=lambda i: i[1])
+            sdists: List[Tuple[Point2D, int]] = sorted(
+                dists.items(), key=lambda i: i[1]
+            )
             mindist = sdists[0][1]
             if sdists[1][1] == mindist:
                 # > 1 candidate is same distance

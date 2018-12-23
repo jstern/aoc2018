@@ -15,7 +15,7 @@ format:
 	.venv/bin/black aoc2018 tests
 
 lint:
-	.venv/bin/flake8 --ignore W503 --max-line-length 88 --max-complexity 6 aoc2018 tests
+	.venv/bin/flake8 --ignore W503 --max-line-length 88 --max-complexity 9 aoc2018 tests
 
 typecheck:
 	.venv/bin/mypy aoc2018 tests
