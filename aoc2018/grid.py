@@ -104,4 +104,11 @@ def max_area(points: List[Point2D]) -> int:
                 a = a + 1
         int_areas[point] = a
 
+    # count the points in the rectangle whose distances add up to less than 10000
+    regions: int = 0
+    for point, dists in distances.items():
+        td = sum(d[1] for d in dists.items())
+        if td < 10000:
+            regions += 1
+    print("closest region size", regions)
     return sorted(int_areas.values())[-1]
