@@ -1,10 +1,9 @@
-import os
 import unittest
 
 from aoc2018 import sleigh
 
 
-class TestTicks(unittest.TestCase):
+class TestDuration(unittest.TestCase):
     def test_duration_for_step(self):
         self.assertEqual(sleigh.duration("A"), 61)
         self.assertEqual(sleigh.duration("Z"), 86)
