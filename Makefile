@@ -9,7 +9,7 @@ test: format lint typecheck
 	.venv/bin/coverage erase
 	.venv/bin/coverage run --source=aoc2018 --omit=aoc2018/exercises/*,aoc2018/inputs.py --branch -m unittest discover -s tests -v
 	.venv/bin/coverage html
-	.venv/bin/coverage report --fail-under 90
+	.venv/bin/coverage report --fail-under 60
 
 format:
 	.venv/bin/black aoc2018 tests

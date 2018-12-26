@@ -27,3 +27,31 @@ class DeviceTests(unittest.TestCase):
     def test_similar_boxes(self):
         ids = ("abcde", "fghij", "klmno", "pqrst", "fguij", "axcye", "wvxyz")
         self.assertEqual(device.Device().matching_letters(ids), "fgij")
+
+    """
+    def test_license_number(self):
+        lic = [2, 3, 0, 3, 10, 11, 12, 1, 1, 0, 1, 99, 2, 1, 1, 2]
+        dev = device.Device(navlicense=lic)
+        self.assertEqual(dev.license_number(), 138)
+    """
+
+
+class LicenseTests(unittest.TestCase):
+    def test_no_children(self):
+        with self.subTest("no md"):
+            lic = [0, 0]
+            self.assertEqual(device.Device(navlicense=lic).license_number(), 0)
+        with self.subTest("1 md"):
+            lic = [0, 1, 2]
+            self.assertEqual(device.Device(navlicense=lic).license_number(), 2)
+        with self.subTest(">1 md"):
+            lic = [0, 2, 3, 4]
+            self.assertEqual(device.Device(navlicense=lic).license_number(), 7)
+
+    def test_with_children(self):
+        lic = [2, 2, 0, 1, 3, 0, 1, 4, 5, 6]
+        self.assertEqual(device.Device(navlicense=lic).license_number(), 18)
+
+    def test_example(self):
+        lic = [2, 3, 0, 3, 10, 11, 12, 1, 1, 0, 1, 99, 2, 1, 1, 2]
+        self.assertEqual(device.Device(navlicense=lic).license_number(), 138)
