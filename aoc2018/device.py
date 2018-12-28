@@ -1,4 +1,5 @@
 from collections import Counter
+from dataclasses import dataclass
 from itertools import chain, cycle
 from typing import Iterable, List, Set
 
@@ -60,6 +61,67 @@ class Device:
 
         return tot
 
-    def license_number_r(self) -> int:
-        # come back and see if this is less brain-wracking done recursively
-        raise NotImplementedError()
+    def license_value(self) -> int:
+        lic = self.navlicense
+        root = LicenseNode(lic[0], lic[1], [], [])
+        node = root
+        i = 2
+        stack: List[LicenseNode] = [root]
+
+        while stack:
+            node = stack[-1]
+
+            if node.complete:
+                # no children or metadata to add
+                stack.pop()  # go back to parent
+                continue
+
+            if node.children_complete:
+                # no more children to add, but maybe metadata
+                mdlast = i + node.mlen
+                md = lic[i:mdlast]
+                i = mdlast
+                node.metadata.extend(md)
+                continue
+
+            # we still have children to add
+            child = LicenseNode(lic[i], lic[i + 1], [], [])
+            i = i + 2
+            node.children.append(child)
+            stack.append(child)
+
+        return root.value
+
+
+@dataclass
+class LicenseNode:
+    clen: int
+    mlen: int
+    children: List["LicenseNode"]
+    metadata: List[int]
+
+    @property
+    def children_complete(self) -> bool:
+        return self.clen == len(self.children)
+
+    @property
+    def metadata_complete(self) -> bool:
+        return self.mlen == len(self.metadata)
+
+    @property
+    def complete(self) -> bool:
+        return self.children_complete and self.metadata_complete
+
+    @property
+    def value(self) -> int:
+        if not self.complete:
+            raise Exception(f"incomplete: {self}")
+        if self.children:
+            nodes = [
+                self.children[i - 1] for i in self.metadata if i > 0 and i <= self.clen
+            ]
+            return sum(map(lambda n: n.value, nodes))
+        return sum(self.metadata)
+
+    def __repr__(self) -> str:
+        return f"({self.clen}:{self.children} {self.mlen}:{self.metadata})"
